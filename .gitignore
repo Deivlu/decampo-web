@@ -1,0 +1,39 @@
+# ── Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Build / caches
+dist
+dist-ssr
+*.local
+.cache
+.eslintcache
+node_modules
+node_modules/.cache
+node_modules/.vite
+
+# ── SO / editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Env (mantener un .env.example)
+.env
+.env.*
+!.env.example
+
+# ── Varias (según despliegue)
+.vercel
+
