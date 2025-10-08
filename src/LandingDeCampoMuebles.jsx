@@ -634,10 +634,62 @@ const ProcesoProBanner = () => (
   </div>
 );
 
+// ——— Aparece al hacer scroll (una sola vez) ———
+const useSectionInView = () => {
+  const [seen, setSeen] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setSeen(true); obs.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, seen };
+};
+
+const DiferencialesGrid = () => {
+  const { ref, seen } = useSectionInView();
+
+  return (
+    <div
+      ref={ref}
+      className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+    >
+      {diferenciales.map((d, i) => (
+        <div
+          key={d.title}
+          style={{ transitionDelay: `${i * 90}ms` }}  // stagger suave
+          className={[
+            // estado inicial (oculto)
+            "opacity-0 translate-y-3",
+            // cuando entra en viewport
+            seen && "opacity-100 translate-y-0",
+            // transición
+            "transition-all duration-700",
+            // card base
+            "bg-white rounded-2xl p-6 shadow-sm border",
+            // hover sutil
+            "hover:-translate-y-1 hover:shadow-md hover:border-amber-400"
+          ].filter(Boolean).join(" ")}
+        >
+          <h3 className="font-bold text-lg">{d.title}</h3>
+          <p className="text-neutral-600 mt-2">{d.text}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+
 /* ──────────────────────────────────────────────────────────────
    Página
    ────────────────────────────────────────────────────────────── */
 export default function LandingDeCampoMuebles() {
+   // ⬇️ Estado para el fade-in del HERO
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   return (
     <div className="text-neutral-800" style={{ background: site.colors.neutral }}>
       {/* NAVBAR */}
@@ -682,61 +734,75 @@ export default function LandingDeCampoMuebles() {
         </div>
       </header>
 
-      {/* HERO */}
-      <section className="relative min-h-[calc(100svh-4rem)] pt-12 md:pt-16">
-        <img
-          src={site.heroImg}
-          alt="Conjunto de sillones de exterior en madera frente a laguna"
-          className="absolute inset-0 w-full h-full object-cover object-[50%_60%] md:object-[50%_55%]"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-black/55 md:bg-gradient-to-t md:from-black/60 md:via-black/35 md:to-transparent" />
-        <div className="relative z-10 h-full flex items-end">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
-            <div className="max-w-3xl text-white">
-              <h1
-                className="text-4xl md:text-6xl font-extrabold drop-shadow leading-tight"
-                style={{ fontFamily: "Raleway, sans-serif" }}
+     {/* HERO (mobile con CTAs más abajo, sin chevron; desktop intacto) */}
+    <section className="relative min-h-[calc(100svh-4rem)] pt-12 md:pt-16 pb-44 md:pb-12">
+      <img
+        src={site.heroImg}
+        alt="Conjunto de sillones de exterior en madera frente a laguna"
+        className="absolute inset-0 w-full h-full object-cover object-[50%_60%] md:object-[50%_55%]"
+        loading="eager"
+      />
+      <div className="absolute inset-0 bg-black/55 md:bg-gradient-to-t md:from-black/60 md:via-black/35 md:to-transparent" />
+     <div className={`max-w-3xl text-white transition-all duration-700 ${
+      mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+          }`}
+      ></div>
+      <div className="relative z-10 h-full flex items-end">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-3xl text-white">
+            <h1
+              className="text-4xl md:text-6xl font-extrabold drop-shadow leading-tight"
+              style={{ fontFamily: "Raleway, sans-serif" }}
+            >
+              Muebles rústicos e industriales para quinchos y exteriores
+            </h1>
+
+            <p className="mt-4 text-lg md:text-xl opacity-95">
+              <Highlight
+                text={site.description}
+                words={["mesas", "islas", "racks", "sillas", "camastros"]}
+              />
+            </p>
+
+            {/* CTAs: en mobile apilados y más abajo; en desktop fila como antes */}
+            <div className="mt-12 md:mt-6 flex flex-col md:flex-row gap-4 md:gap-3 md:items-center w-full md:w-auto max-w-sm md:max-w-none">
+              <WhatsAppButton size="md" className="w-full md:w-auto" />
+              <Button
+                href={site.instagram}
+                size="md"
+                variant="glassDark"
+                className="w-full md:w-auto"
+                target="_blank"
+                rel="noreferrer noopener"
               >
-                Muebles rústicos e industriales para quinchos y exteriores
-              </h1>
-
-              <p className="mt-4 text-lg md:text-xl opacity-95">
-                <Highlight text={site.description} words={["mesas", "islas", "racks", "sillas", "camastros"]} />
-              </p>
-
-              <div className="mt-6 flex items-center gap-3">
-                <WhatsAppButton />
-                <Button href={site.instagram} size="md" variant="glassDark" target="_blank" rel="noreferrer noopener">
-                  Ver Instagram
-                </Button>
-              </div>
+                Ver Instagram
+              </Button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* DIFERENCIALES */}
-      <section className="py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle
-            kicker="Por qué elegirnos"
-            title="Hecho a mano, pensado para durar"
-            subtitle="Piezas macizas, personalizadas y resistentes, con maderas del NEA."
-          />
-          <div className="mt-6 flex justify-center">
-          <SelloTripleCapa withText className="bg-amber-600" />
+
+    {/* DIFERENCIALES */}
+    <section className="py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionTitle
+          kicker="Por qué elegirnos"
+          title="Hecho a mano, pensado para durar"
+          subtitle="Piezas macizas, personalizadas y resistentes, con maderas del NEA."
+        />
+
+        {/* Sello (puede latir suave) */}
+        <div className="mt-6 flex justify-center">
+          <SelloTripleCapa withText className="bg-amber-600 animate-pulse" />
         </div>
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {diferenciales.map((d, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border">
-                <h3 className="font-bold text-lg">{d.title}</h3>
-                <p className="text-neutral-600 mt-2">{d.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+        {/* Grid con efecto de aparición y hover */}
+        <DiferencialesGrid />
+      </div>
+    </section>
+
 
       {/* PRODUCTOS */}
       <section id="productos" className="py-16 bg-neutral-100 border-t border-b">
