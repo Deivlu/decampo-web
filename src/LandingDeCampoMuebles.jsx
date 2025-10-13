@@ -784,58 +784,61 @@ export default function LandingDeCampoMuebles() {
       style={{ background: site.colors.neutral }}
     >
       {/* NAVBAR */}
-        <header className="sticky top-0 z-50 bg-white/75 backdrop-blur border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between py-1.5 md:py-0">
-          {/* Logo + marca clickeables para ir al inicio */}
-          <a
-            href="#top"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="flex items-center gap-2 md:gap-3 group cursor-pointer select-none min-w-0"
-          >
-            {site.logo ? (
-              <img
-                src={site.logo}
-                alt={site.brand}
-                className="h-8 md:h-9 w-auto rounded"
-              />
-            ) : (
-              <div
-                className="h-8 md:h-9 w-8 md:w-9 rounded-xl flex items-center justify-center font-black text-white"
-                style={{ background: site.colors.primary }}
-              >
-                {site.brand.split(" ")[0].slice(0, 2)}
-              </div>
-            )}
-
-            <div className="min-w-0">
-              {/* Nombre: una sola línea + truncado si no entra */}
-              <p
-                className="font-bold leading-tight whitespace-nowrap truncate max-w-[62vw] sm:max-w-none text-[15px] sm:text-base group-hover:opacity-80 transition"
-                style={{ fontFamily: "Raleway, sans-serif" }}
-                title={site.brand}
-              >
-                {site.brand}
-              </p>
-
-              {/* Tagline: en mobile puede ocupar 1–2 líneas, con tamaño chico */}
-              <p className="text-[11px] sm:text-xs text-neutral-500 -mt-0.5 sm:-mt-1 truncate max-w-[70vw] sm:max-w-none">
-                {site.tagline}
-              </p>
+       <header className="sticky top-0 z-50 bg-white/75 backdrop-blur border-b">
+      {/* ↑ un toque más alto en mobile */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 md:h-16 flex items-center justify-between py-2 md:py-0">
+        {/* Logo + marca clickeables */}
+        <a
+          href="#top"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="flex items-center gap-3 group cursor-pointer select-none min-w-0"
+        >
+          {site.logo ? (
+            <img
+              src={site.logo}
+              alt={site.brand}
+              /* ↑ logo más grande en mobile */
+              className="h-10 md:h-9 w-auto rounded"
+            />
+          ) : (
+            <div
+              className="h-10 md:h-9 w-10 md:w-9 rounded-xl flex items-center justify-center font-black text-white"
+              style={{ background: site.colors.primary }}
+            >
+              {site.brand.split(" ")[0].slice(0, 2)}
             </div>
-          </a>
+          )}
 
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#productos" className="hover:opacity-80">Productos</a>
-            <a href="#materiales" className="hover:opacity-80">Maderas</a>
-            <a href="#pasoapaso" className="hover:opacity-80">Paso a paso</a>
-            <a href="#nosotros" className="hover:opacity-80">Nosotros</a>
-            <a href="#contacto" className="hover:opacity-80">Contacto</a>
-          </nav>
-        </div>
-      </header>
+          <div className="min-w-0">
+            {/* Nombre: más grande, 1 sola línea, trunc si no entra */}
+            <p
+              className="font-bold leading-tight whitespace-nowrap truncate max-w-[64vw] sm:max-w-none text-[17px] sm:text-base tracking-tight group-hover:opacity-80 transition"
+              style={{ fontFamily: "Raleway, sans-serif" }}
+              title={site.brand}
+            >
+              {site.brand}
+            </p>
+
+            {/* Tagline: un poco más grande también */}
+            <p className="text-[12px] sm:text-xs text-neutral-500 -mt-0.5 sm:-mt-1 truncate max-w-[72vw] sm:max-w-none">
+              {site.tagline}
+            </p>
+          </div>
+        </a>
+
+        <nav className="hidden md:flex items-center gap-6 text-sm">
+          <a href="#productos" className="hover:opacity-80">Productos</a>
+          <a href="#materiales" className="hover:opacity-80">Maderas</a>
+          <a href="#pasoapaso" className="hover:opacity-80">Paso a paso</a>
+          <a href="#nosotros" className="hover:opacity-80">Nosotros</a>
+          <a href="#contacto" className="hover:opacity-80">Contacto</a>
+        </nav>
+      </div>
+    </header>
+
 
 
       {/* HERO */}
