@@ -809,14 +809,17 @@ export default function LandingDeCampoMuebles() {
                 {site.brand.split(" ")[0].slice(0, 2)}
               </div>
             )}
-            <div>
+            <div className="flex flex-col">
               <p
                 className="font-bold leading-tight group-hover:opacity-80 transition"
                 style={{ fontFamily: "Raleway, sans-serif" }}
               >
                 {site.brand}
               </p>
-              <p className="text-xs text-neutral-500 -mt-1">{site.tagline}</p>
+              {/* más aire entre nombre y descripción */}
+              <p className="text-[13px] md:text-sm text-neutral-500 mt-0">
+              {site.tagline}
+              </p>
             </div>
           </a>
 
