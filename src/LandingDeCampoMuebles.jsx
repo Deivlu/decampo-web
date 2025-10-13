@@ -784,8 +784,8 @@ export default function LandingDeCampoMuebles() {
       style={{ background: site.colors.neutral }}
     >
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 bg-white/75 backdrop-blur border-b h-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <header className="sticky top-0 z-50 bg-white/75 backdrop-blur border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between py-1.5 md:py-0">
           {/* Logo + marca clickeables para ir al inicio */}
           <a
             href="#top"
@@ -793,55 +793,50 @@ export default function LandingDeCampoMuebles() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="flex items-center gap-3 group cursor-pointer select-none"
+            className="flex items-center gap-2 md:gap-3 group cursor-pointer select-none min-w-0"
           >
             {site.logo ? (
               <img
                 src={site.logo}
                 alt={site.brand}
-                className="h-9 w-auto rounded"
+                className="h-8 md:h-9 w-auto rounded"
               />
             ) : (
               <div
-                className="h-9 w-9 rounded-xl flex items-center justify-center font-black text-white"
+                className="h-8 md:h-9 w-8 md:w-9 rounded-xl flex items-center justify-center font-black text-white"
                 style={{ background: site.colors.primary }}
               >
                 {site.brand.split(" ")[0].slice(0, 2)}
               </div>
             )}
-            <div className="flex flex-col">
+
+            <div className="min-w-0">
+              {/* Nombre: una sola línea + truncado si no entra */}
               <p
-                className="font-bold leading-tight group-hover:opacity-80 transition"
+                className="font-bold leading-tight whitespace-nowrap truncate max-w-[62vw] sm:max-w-none text-[15px] sm:text-base group-hover:opacity-80 transition"
                 style={{ fontFamily: "Raleway, sans-serif" }}
+                title={site.brand}
               >
                 {site.brand}
               </p>
-              {/* más aire entre nombre y descripción */}
-              <p className="text-[13px] md:text-sm text-neutral-500 mt-0">
-              {site.tagline}
+
+              {/* Tagline: en mobile puede ocupar 1–2 líneas, con tamaño chico */}
+              <p className="text-[11px] sm:text-xs text-neutral-500 -mt-0.5 sm:-mt-1 truncate max-w-[70vw] sm:max-w-none">
+                {site.tagline}
               </p>
             </div>
           </a>
 
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#productos" className="hover:opacity-80">
-              Productos
-            </a>
-            <a href="#materiales" className="hover:opacity-80">
-              Maderas
-            </a>
-            <a href="#pasoapaso" className="hover:opacity-80">
-              Paso a paso
-            </a>
-            <a href="#nosotros" className="hover:opacity-80">
-              Nosotros
-            </a>
-            <a href="#contacto" className="hover:opacity-80">
-              Contacto
-            </a>
+            <a href="#productos" className="hover:opacity-80">Productos</a>
+            <a href="#materiales" className="hover:opacity-80">Maderas</a>
+            <a href="#pasoapaso" className="hover:opacity-80">Paso a paso</a>
+            <a href="#nosotros" className="hover:opacity-80">Nosotros</a>
+            <a href="#contacto" className="hover:opacity-80">Contacto</a>
           </nav>
         </div>
       </header>
+
 
       {/* HERO */}
       <section className="relative min-h-[calc(100svh-4rem)] pt-12 md:pt-16 pb-44 md:pb-12">
