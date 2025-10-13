@@ -7,3 +7,16 @@
 /* Global */
 html, body, #root { height: 100%; }
 html, body { scroll-behavior: smooth; }
+
+/* Efecto “tap” sólo en pantallas táctiles */
+@media (hover: none) {
+  .card:active {
+    transform: scale(0.97);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  }
+}
+
+/* Mejora la respuesta del tap y evita “retrasos” en algunos navegadores móviles */
+.card {
+  touch-action: manipulation;
+}

@@ -710,12 +710,7 @@ const useSectionInView = () => {
   const ref = useRef(null);
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setSeen(true);
-          obs.disconnect();
-        }
-      },
+      ([e]) => { if (e.isIntersecting) { setSeen(true); obs.disconnect(); } },
       { threshold: 0.15 }
     );
     if (ref.current) obs.observe(ref.current);
@@ -730,29 +725,47 @@ const DiferencialesGrid = () => {
   return (
     <div
       ref={ref}
-      className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
     >
       {diferenciales.map((d, i) => (
         <div
           key={d.title}
-          style={{ transitionDelay: `${i * 90}ms` }} // stagger suave
+          style={{ transitionDelay: `${i * 90}ms` }}
           className={[
             "opacity-0 translate-y-3",
             seen && "opacity-100 translate-y-0",
             "transition-all duration-700",
-            "bg-white rounded-2xl p-6 shadow-sm border",
-            "hover:-translate-y-1 hover:shadow-md hover:border-amber-400",
-          ]
-            .filter(Boolean)
-            .join(" ")}
+            "h-full"
+          ].filter(Boolean).join(" ")}
         >
-          <h3 className="font-bold text-lg">{d.title}</h3>
-          <p className="text-neutral-600 mt-2">{d.text}</p>
+          {/* Card interactiva: mantiene alturas iguales (h-full) + efecto hover/tap */}
+          <div
+            role="button"
+            tabIndex={0}
+            onTouchStart={() => {}} // fuerza :active en mobile
+            className={[
+              "bg-white rounded-2xl p-6 shadow-sm border box-border",
+              "transition-transform duration-150 will-change-transform",
+              // Hover (desktop)
+              "hover:-translate-y-1 hover:shadow-md hover:border-amber-400",
+              // Tap (mobile)
+              "active:translate-y-[2px] active:scale-[0.99] active:shadow-lg",
+              "cursor-pointer select-none",
+              "h-full flex flex-col"
+            ].join(" ")}
+            style={{ touchAction: "manipulation" }}
+          >
+            <h3 className="font-bold text-lg">{d.title}</h3>
+            <p className="text-neutral-600 mt-2">{d.text}</p>
+          </div>
         </div>
       ))}
     </div>
   );
 };
+
+
+
 
 /* ──────────────────────────────────────────────────────────────
   Página
@@ -877,7 +890,7 @@ export default function LandingDeCampoMuebles() {
       </section>
 
       {/* DIFERENCIALES */}
-      <section className="py-14">
+      <section className="py-14 bg-gradient-to-b from-[#f9e0b7] to-[#f5d6a3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle
             kicker="Por qué elegirnos"
