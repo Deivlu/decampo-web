@@ -102,6 +102,12 @@ const productos = [
       "/images/Mesas/mesa6.jpg",
       "/images/Mesas/mesa7.JPG",
       "/images/Mesas/mesa8.jpg",
+      "/images/Mesas/mesa9.jpg",
+      "/images/Mesas/mesa10.JPG",
+      "/images/Mesas/mesa11.jpg",
+      "/images/Mesas/mesa12.jpg",
+      "/images/Mesas/mesa13.PNG",
+      "/images/Mesas/mesa14.JPG",
 
     ],
     tags: ["Exterior", "A medida"],
@@ -114,6 +120,8 @@ const productos = [
       "/images/Islas/isla2.JPG",
       "/images/Islas/isla3.JPG",
       "/images/Islas/isla4.JPG",
+      "/images/Islas/isla5.JPG",
+      "/images/Islas/isla6.JPG",
     ],
     tags: ["Quincho", "Barra"],
   },
@@ -130,6 +138,7 @@ const productos = [
       "/images/Sillas/silla1.jpg",
       "/images/Sillas/silla2.jpg",
       "/images/Sillas/silla3.jpg",
+      "/images/Sillas/silla4.jpg",
     ],
     tags: ["Galería", "Exterior"],
   },
@@ -905,6 +914,8 @@ export default function LandingDeCampoMuebles() {
         </div>
       </section>
 
+      {/* --- FIN SECCIÓN --- */}
+
       {/* PRODUCTOS */}
       <section
         id="productos"
@@ -917,6 +928,35 @@ export default function LandingDeCampoMuebles() {
             subtitle="Deslizá para ver más."
           />
           <CatalogCarousel items={productos} />
+        </div>
+      </section>
+
+      {/* 2. SECCIÓN DESCARGAR CATÁLOGO (Justo después) */}
+      <section id="catalogo-pdf"
+        className="py-16 bg-neutral-100 border-t border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <SectionTitle
+            kicker="Descubrí más"
+            title="Descargá nuestro Catálogo 2025"
+          />
+          <p className="mt-4 max-w-2xl mx-auto text-neutral-700">
+            Explorá nuestra colección completa de mesas, sillas, islas, livings y más, fabricados con las mejores maderas nativas de Corrientes. Encontrá inspiración y detalles sobre nuestros diseños rústicos e industriales.
+          </p>
+          <div className="mt-8">
+            <Button
+              href="/CATALOGO DECAMPO MUEBLES 2025-26.pdf"
+              download="catalogo-decampo-muebles-2025-26.pdf"
+              variant="primary"
+              size="lg"
+              leading={
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+              }
+            >
+              Descargar Catálogo (PDF)
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -1172,6 +1212,16 @@ export default function LandingDeCampoMuebles() {
           <div className="text-sm text-neutral-500">
             © {new Date().getFullYear()} {site.brand}. Todos los derechos
             reservados.
+            {/* --- ENLACE AL CATÁLOGO AQUÍ --- */}
+            <br /> {/* Salto de línea opcional */}
+            <a
+              href="/CATALOGO DECAMPO MUEBLES 2025-26.pdf" // Ruta al archivo en la carpeta public
+              download="catalogo-decampo-muebles-2025-26.pdf" // Nombre sugerido para la descarga
+              className="underline hover:text-neutral-700 block mt-1" // Estilos básicos
+            >
+              Descargar Catálogo PDF
+            </a>
+            {/* --- FIN ENLACE --- */}
           </div>
           <div className="text-sm text-neutral-500">
             Hecho en Corrientes • Sitio por{" "}
