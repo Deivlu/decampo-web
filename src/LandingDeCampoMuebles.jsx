@@ -931,7 +931,7 @@ export default function LandingDeCampoMuebles() {
         </div>
       </section>
 
-      {/* 2. SECCIÓN DESCARGAR CATÁLOGO (Justo después) */}
+      {/* 2. SECCIÓN DESCARGAR CATÁLOGO*/}
       <section id="catalogo-pdf"
         className="py-16 bg-neutral-100 border-t border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
